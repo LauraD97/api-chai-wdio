@@ -1,3 +1,4 @@
+const { expect } = require("chai");
 const swAPI = require("../apis/swAPI");
 
 describe("API Testing - Star Wars API", () => {
@@ -21,5 +22,35 @@ describe("API Testing - Star Wars API", () => {
   it("should be able to get planets", async () => {
     let planetResponse = await swAPI.getPlanets();
     expect(planetResponse.body).to.be.an("object").that.includes.property("count");
+  });
+
+  //POST Method example
+  it('should create a new planet', async () => {
+    const newPlanet = {
+      name: "Tatooine",
+			rotation_period: "23",
+			orbital_period: "304",
+    }
+
+    let planetResponse = await swAPI.postPlanet(newPlanet);
+    expect(planetResponse.status).to.equal(201);
+  });
+
+  //PUT method example
+  it('should edit a specie', async () => {
+    const specieToUpdate = {
+      name: "Human",
+			classification: "mammal",
+			designation: "sentient",
+    }
+
+    let specieResponse = await swAPI.putSpecies(1, specieToUpdate);
+    expect(specieResponse.status).to.equal(200);    
+  });
+
+  //Delete method example
+  it.only('should delete an existing vehicle', async() => {
+    let vehicleResponse = await swAPI.deleteVehicle(1);
+    expect(vehicleResponse.status).to.equal(204);
   });
 });

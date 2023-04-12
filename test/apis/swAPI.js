@@ -12,4 +12,18 @@ module.exports = {
   getPlanets: function () {
     return chai.request("https://swapi.dev/").get("/api/planets");
   },
+  postPlanet: function(planet) {
+    return chai.request("https://swapi.dev/")
+               .post("/api/planets")
+               .send(planet);
+  },
+  putSpecies: function(id, specie) {
+    return chai.request("https://swapi.dev/")
+              .put(`/api/species/${id}`)
+              .send(specie);            
+  },
+  deleteVehicle: function(id) {
+    return chai.request("https://swapi.dev/")
+              .delete(`/api/vehicles/${id}`)
+  }
 };
